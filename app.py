@@ -218,6 +218,104 @@ def save_user():
             'details': error_msg
         }), 500
 
+@app.route('/api/save-game-result', methods=['POST'])
+def save_game_result():
+    """Save game result to GameResults table (separate table for history tracking)."""
+    try:
+        data = request.get_json()
+        
+        if not data:
+            logging.error("No JSON data received")
+            return jsonify({'error': 'No data received'}), 400
+        
+        email = data.get('email', '').strip()
+        score = data.get('score')
+        
+        if not email:
+            return jsonify({'error': 'Email is required'}), 400
+        
+        if score is None or not isinstance(score, int) or score < 0 or score > 3:
+            return jsonify({'error': 'Valid score (0-3) is required'}), 400
+        
+        qualified_for_raffle = score >= 2
+        
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        try:
+            # Check if user exists and get UserId
+            cursor.execute("""
+                SELECT Id FROM [dbo].[GameUsers] WHERE Email = ?
+            """, email)
+            user_result = cursor.fetchone()
+            
+            if not user_result:
+                return jsonify({
+                    'error': 'User not found. Please register first.',
+                    'code': 'USER_NOT_FOUND'
+                }), 404
+            
+            user_id = user_result[0]
+            
+            # Create GameResults table if it doesn't exist
+            cursor.execute("""
+                IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GameResults]') AND type in (N'U'))
+                CREATE TABLE [dbo].[GameResults](
+                    [Id] [int] IDENTITY(1,1) NOT NULL,
+                    [UserId] [int] NOT NULL,
+                    [Email] [nvarchar](255) NOT NULL,
+                    [Score] [int] NOT NULL,
+                    [QualifiedForRaffle] [bit] NOT NULL DEFAULT 0,
+                    [CompletedAt] [datetime2](7) NOT NULL DEFAULT (getutcdate()),
+                    PRIMARY KEY CLUSTERED ([Id] ASC),
+                    CONSTRAINT [FK_GameResults_GameUsers] FOREIGN KEY ([UserId]) 
+                        REFERENCES [dbo].[GameUsers] ([Id]) ON DELETE CASCADE
+                )
+            """)
+            conn.commit()
+            
+            # Insert new game result (allows multiple attempts per user)
+            cursor.execute("""
+                INSERT INTO [dbo].[GameResults] (UserId, Email, Score, QualifiedForRaffle)
+                VALUES (?, ?, ?, ?)
+            """, user_id, email, score, qualified_for_raffle)
+            conn.commit()
+            
+            logging.info(f"Game result saved for {email}: Score={score}, Qualified={qualified_for_raffle}")
+            
+            return jsonify({
+                'success': True,
+                'message': 'Game result saved successfully!',
+                'score': score,
+                'qualifiedForRaffle': qualified_for_raffle
+            }), 200
+            
+        except Exception as query_error:
+            logging.error(f"Error saving game result: {query_error}")
+            logging.error(f"Query error traceback: {traceback.format_exc()}")
+            conn.rollback()
+            return jsonify({
+                'error': 'Failed to save game result',
+                'details': str(query_error)
+            }), 500
+        finally:
+            cursor.close()
+            conn.close()
+            
+    except Exception as e:
+        error_msg = str(e)
+        error_type = type(e).__name__
+        
+        logging.error(f"Error saving game result: {error_type}: {error_msg}")
+        logging.error(f"Error traceback: {traceback.format_exc()}")
+        
+        return jsonify({
+            'success': False,
+            'error': 'Failed to save game result',
+            'error_type': error_type,
+            'details': error_msg
+        }), 500
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     logging.info(f"Starting Flask application on http://0.0.0.0:{port}")

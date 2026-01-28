@@ -122,6 +122,7 @@ let currentQuestion = 0;
 let questions = [];
 let isSubmitting = false;
 let isCheckingEmail = false;
+let userEmail = null; // Track user's email for saving game results
 
 // Configuration: Set to false to hide save success/error messages
 const SHOW_SAVE_MESSAGES = false;
@@ -448,7 +449,7 @@ function selectAnswer(selected) {
 }
 
 // Show result
-function showResult() {
+async function showResult() {
     // Update score display one final time before hiding
     const scoreElement = document.getElementById('score');
     if (scoreElement) {
@@ -476,6 +477,32 @@ function showResult() {
             resultText.textContent = t('loseMessage', { score: score });
         }
     }
+    
+    // Save game result to database
+    if (userEmail) {
+        try {
+            const response = await fetch('/api/save-game-result', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: userEmail,
+                    score: score
+                })
+            });
+            
+            if (response.ok) {
+                const result = await response.json();
+                console.log(`Game result saved: Score=${score}, Qualified=${result.qualifiedForRaffle}`);
+            } else {
+                const error = await response.json();
+                console.warn(`Failed to save game result: ${error.error || 'Unknown error'}`);
+                // Don't show error to user - game already completed
+            }
+        } catch (error) {
+            console.warn(`Error saving game result: ${error.message}`);
+            // Don't show error to user - game already completed
+        }
+    }
 }
 
 // Form submission
@@ -492,7 +519,7 @@ document.getElementById('user-form').onsubmit = async function(e) {
     submitButton.disabled = true;
     
     const userName = document.getElementById('name').value.trim();
-    const userEmail = document.getElementById('email').value.trim();
+    userEmail = document.getElementById('email').value.trim(); // Set global userEmail
     const fabricExperience = document.querySelector('input[name="fabricExperience"]:checked')?.value || '';
     const description = document.querySelector('input[name="description"]:checked')?.value || '';
     const canContact = document.querySelector('input[name="canContact"]:checked')?.value || '';
@@ -529,6 +556,7 @@ document.getElementById('user-form').onsubmit = async function(e) {
         
         // Success - show success message if enabled
         await response.json();
+        // userEmail is already set from the form
         if (SHOW_SAVE_MESSAGES) {
             errorDiv.textContent = t('dataSaved');
             errorDiv.className = 'success-message';
@@ -607,6 +635,7 @@ document.getElementById('email-form').onsubmit = async function(e) {
         
         if (result.exists) {
             // Email exists - go directly to game
+            userEmail = email; // Store email for game result saving
             errorDiv.textContent = t('welcomeBack');
             errorDiv.className = 'success-message';
             errorDiv.style.display = 'block';
@@ -618,6 +647,7 @@ document.getElementById('email-form').onsubmit = async function(e) {
             }, 1000);
         } else {
             // Email doesn't exist - show registration form
+            userEmail = email; // Store email for game result saving
             document.getElementById('email').value = email;
             document.getElementById('email-from-check').textContent = t('emailFromCheck', { email: email });
             document.getElementById('email-from-check').style.display = 'block';
