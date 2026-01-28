@@ -18,6 +18,8 @@ start_flask.ps1
 create_azuread_user.sql
 flask_app.log
 *.log
+deploy.zip
+federated-credential.json
 
 # IDE
 .vscode/
