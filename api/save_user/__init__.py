@@ -8,8 +8,6 @@ import traceback
 import struct
 from azure.identity import DefaultAzureCredential  # type: ignore
 
-app = func.FunctionApp()
-
 def mask_connection_string(conn_str: str) -> str:
     """Mask sensitive parts of connection string for logging."""
     # Mask server, database, user, password
@@ -80,8 +78,7 @@ def get_db_connection():
         logging.error(f"❌ Connection failed: {e}")
         raise
 
-@app.route(route="save", auth_level=func.AuthLevel.ANONYMOUS, methods=["POST"])
-def save_user(req: func.HttpRequest) -> func.HttpResponse:
+def main(req: func.HttpRequest) -> func.HttpResponse:
     """Azure Function to save user data to SQL database."""
     logging.info("POST /api/save - Received request")
     
