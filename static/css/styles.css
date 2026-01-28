@@ -243,6 +243,20 @@ button:disabled:hover, .submit-button:disabled:hover {
     display: none;
 }
 
+#email-error-message {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 500;
+    display: none;
+}
+
+#email-from-check {
+    display: none;
+}
+
 #error-message.error-message {
     display: block;
     color: #f44336;
