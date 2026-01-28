@@ -304,6 +304,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize language on page load
     updateLanguage();
+    
+    // Rotate question button
+    const rotateButton = document.getElementById('rotate-question');
+    if (rotateButton) {
+        rotateButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            rotateQuestion();
+        });
+    }
 });
 
 // Initialize game
@@ -366,6 +375,42 @@ function showQuestion() {
         btn.onclick = () => selectAnswer(option);
         optionsDiv.appendChild(btn);
     });
+}
+
+// Rotate to a new question
+function rotateQuestion() {
+    if (currentQuestion >= questions.length) return;
+    
+    // Get icons already used in other questions (to avoid duplicates)
+    const usedIcons = questions
+        .map((q, idx) => idx !== currentQuestion ? q.icon.name : null)
+        .filter(name => name !== null);
+    
+    // Pick a new random icon that's not already used
+    const availableIcons = icons.filter(i => !usedIcons.includes(i.name));
+    
+    if (availableIcons.length === 0) {
+        // If all icons are used, allow any icon
+        const newIcon = icons[Math.floor(Math.random() * icons.length)];
+        const wrong = icons.filter(i => i.name !== newIcon.name)
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 3);
+        const options = [newIcon.name, ...wrong.map(i => i.name)]
+            .sort(() => Math.random() - 0.5);
+        
+        questions[currentQuestion] = { icon: newIcon, options, correct: newIcon.name };
+    } else {
+        const newIcon = availableIcons[Math.floor(Math.random() * availableIcons.length)];
+        const wrong = icons.filter(i => i.name !== newIcon.name)
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 3);
+        const options = [newIcon.name, ...wrong.map(i => i.name)]
+            .sort(() => Math.random() - 0.5);
+        
+        questions[currentQuestion] = { icon: newIcon, options, correct: newIcon.name };
+    }
+    
+    showQuestion();
 }
 
 // Select answer
