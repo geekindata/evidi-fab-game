@@ -318,7 +318,14 @@ async function submitUserData(event) {
         
     } catch (error) {
         console.error('Error submitting data:', error);
-        errorDiv.textContent = 'Failed to submit. You can still play, but your data won\'t be saved.';
+        let errorMessage = 'Failed to submit. You can still play, but your data won\'t be saved.';
+        
+        // Try to get more details from the error
+        if (error.message) {
+            console.error('Error details:', error.message);
+        }
+        
+        errorDiv.textContent = errorMessage;
         
         // Allow user to continue anyway
         setTimeout(() => {

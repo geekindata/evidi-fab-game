@@ -42,32 +42,40 @@ public static async Task<IActionResult> Run(HttpRequest req, ILogger log)
             return new StatusCodeResult(500);
         }
 
-        // Remove Interactive authentication for Azure Functions
-        // Use Managed Identity or SQL Authentication instead
-        string baseConnectionString = connectionString
-            .Replace("Authentication=Active Directory Interactive", "")
-            .TrimEnd(';', ' ');
+        log.LogInformation($"Connection string retrieved (length: {connectionString.Length})");
 
         // Insert into database
-        using (SqlConnection connection = new SqlConnection(baseConnectionString))
+        // For Microsoft Fabric SQL, we need to use SQL Authentication or Managed Identity
+        // The connection string should include User ID and Password for SQL Authentication
+        // OR we can use Managed Identity if configured
+        
+        SqlConnection connection = null;
+        try
         {
-            // Try to use Managed Identity if available (for Azure deployment)
-            // Otherwise fall back to connection string authentication
+            // First, try Managed Identity (works if Static Web App has managed identity enabled)
             try
             {
                 var credential = new DefaultAzureCredential();
                 var tokenRequestContext = new TokenRequestContext(new[] { "https://database.windows.net/.default" });
                 var token = await credential.GetTokenAsync(tokenRequestContext);
+                
+                // Create connection without AccessToken first, then set it
+                connection = new SqlConnection(connectionString);
                 connection.AccessToken = token.Token;
                 log.LogInformation("Using Managed Identity authentication");
             }
             catch (Exception authEx)
             {
-                // If Managed Identity fails, use connection string authentication
-                log.LogInformation($"Managed Identity not available, using connection string auth: {authEx.Message}");
+                // Managed Identity not available, use connection string as-is
+                // Connection string should have User ID and Password for SQL Authentication
+                log.LogWarning($"Managed Identity not available: {authEx.Message}");
+                log.LogInformation("Attempting SQL Authentication with connection string");
+                connection = new SqlConnection(connectionString);
             }
             
+            log.LogInformation("Attempting to open database connection...");
             await connection.OpenAsync();
+            log.LogInformation("Database connection opened successfully");
             
             string query = @"
                 IF NOT EXISTS (SELECT 1 FROM sys.tables WHERE name = 'GameUsers')
@@ -119,6 +127,15 @@ public static async Task<IActionResult> Run(HttpRequest req, ILogger log)
                 command.Parameters.AddWithValue("@CanContact", canContact);
                 
                 await command.ExecuteNonQueryAsync();
+                log.LogInformation("Data inserted successfully");
+            }
+        }
+        finally
+        {
+            if (connection != null)
+            {
+                connection.Close();
+                log.LogInformation("Database connection closed");
             }
         }
 
@@ -133,6 +150,13 @@ public static async Task<IActionResult> Run(HttpRequest req, ILogger log)
     {
         log.LogError($"Error: {ex.Message}");
         log.LogError($"Stack trace: {ex.StackTrace}");
-        return new StatusCodeResult(500);
+        log.LogError($"Inner exception: {ex.InnerException?.Message}");
+        
+        // Return more detailed error for debugging
+        return new ObjectResult(new { 
+            success = false, 
+            error = ex.Message,
+            details = ex.InnerException?.Message ?? "No inner exception"
+        }) { StatusCode = 500 };
     }
 }
