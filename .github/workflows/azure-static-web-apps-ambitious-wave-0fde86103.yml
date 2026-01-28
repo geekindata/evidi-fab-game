@@ -30,8 +30,7 @@ jobs:
           api_location: "api" # Api source code path - optional
           output_location: "/" # Built app content directory - optional
           skip_app_build: true # Skip build since this is a static HTML site
-          skip_api_build: true # Skip API build - .csx files are runtime-compiled
-          api_build_command: "" # Empty command to skip build
+          skip_api_build: false # Build the API - now using proper .csproj structure
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
