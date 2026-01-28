@@ -191,9 +191,9 @@ function updateLanguage() {
             span.textContent = t('fabricWorking');
         } else if (text === "A lot of experience with Fabric" || text === "Mye erfaring med Fabric") {
             span.textContent = t('fabricLot');
-        } else if (text === "Missing a stronger professional environment" || text.includes("Savner et sterkere")) {
+        } else if (text === "Missing a stronger professional environment and exciting projects" || text === "Savner et sterkere profesjonelt miljø og spennende prosjekter" || text.includes("Savner et sterkere")) {
             span.textContent = t('descMissing');
-        } else if (text === "Looking for a supplier" || text.includes("Ser etter en leverandør")) {
+        } else if (text === "Looking for a supplier who can assist with Fabric" || text === "Ser etter en leverandør som kan hjelpe med Fabric" || text.includes("Ser etter en leverandør")) {
             span.textContent = t('descSupplier');
         } else if (text.includes("Have a lot of Fabric experience") || text.includes("Har mye Fabric-erfaring")) {
             span.textContent = t('descShare');
