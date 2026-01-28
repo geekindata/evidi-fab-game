@@ -73,4 +73,5 @@ jobs:
         with:
           app-name: 'evidi-fab-game'
           slot-name: 'Production'
+          startup-command: 'gunicorn --bind 0.0.0.0:8000 --timeout 600 --workers 2 --threads 4 app:app'
           
