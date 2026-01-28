@@ -1,24 +1,31 @@
-# Azure Functions
-bin/
-obj/
-.vs/
-*.user
-*.suo
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+venv/
+env/
+.venv
+*.egg-info/
+dist/
+build/
 
-# Environment variables
+# Environment variables and sensitive files
+.env
+.env.local
 local.settings.json
 .azure/
+start_flask.ps1
+create_azuread_user.sql
+flask_app.log
+*.log
 
-# Node modules (if any)
-node_modules/
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
 
 # OS files
 .DS_Store
 Thumbs.db
-
-# Python
-__pycache__/
-*.py[cod]
-
-# Azure
-.azure/
+desktop.ini

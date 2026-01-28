@@ -1,0 +1,18 @@
+# ============================================
+# Start Flask App with Connection String
+# ============================================
+# Copy this file to start_flask.ps1 and update with your connection string
+# ============================================
+
+Write-Host "`n============================================" -ForegroundColor Cyan
+Write-Host "Starting FabFeb Game Flask App" -ForegroundColor Cyan
+Write-Host "============================================`n" -ForegroundColor Cyan
+
+# Set connection string - REPLACE WITH YOUR ACTUAL CONNECTION STRING
+$env:SQL_CONNECTION_STRING="Driver={ODBC Driver 18 for SQL Server};Server=YOUR_SERVER.database.fabric.microsoft.com,1433;Database=YOUR_DATABASE_NAME;Encrypt=yes;TrustServerCertificate=no;Authentication=ActiveDirectoryInteractive"
+
+Write-Host "✅ Connection string set" -ForegroundColor Green
+Write-Host "🌐 Starting Flask app on http://localhost:5000`n" -ForegroundColor Yellow
+
+# Start Flask
+python app.py

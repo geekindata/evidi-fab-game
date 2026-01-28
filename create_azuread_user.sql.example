@@ -1,0 +1,33 @@
+-- ============================================
+-- Create Azure AD User for FabFeb Game
+-- ============================================
+-- Copy this file to create_azuread_user.sql and replace YOUR_EMAIL@domain.com
+-- ============================================
+
+-- Get your Azure AD email by running in PowerShell:
+-- az account show --query user.name -o tsv
+-- Then replace YOUR_EMAIL@domain.com below with your actual email
+
+-- Create Azure AD user
+CREATE USER [YOUR_EMAIL@domain.com] FROM EXTERNAL PROVIDER;
+GO
+
+-- Grant permissions
+ALTER ROLE db_datareader ADD MEMBER [YOUR_EMAIL@domain.com];
+ALTER ROLE db_datawriter ADD MEMBER [YOUR_EMAIL@domain.com];
+GO
+
+-- Verify
+SELECT 
+    name AS UserName,
+    type_desc AS UserType,
+    authentication_type_desc AS AuthType
+FROM sys.database_principals
+WHERE name = 'YOUR_EMAIL@domain.com';
+GO
+
+PRINT '✅ Azure AD user created successfully!';
+PRINT '';
+PRINT 'Now update your connection string to REMOVE User ID/Password';
+PRINT 'The app will use your Azure CLI credentials automatically!';
+GO
