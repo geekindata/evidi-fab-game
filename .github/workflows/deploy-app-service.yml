@@ -31,6 +31,6 @@ jobs:
     - name: Deploy to App Service
       uses: azure/webapps-deploy@v2
       with:
-        app-name: 'evidi-fab-game-dev'
+        app-name: 'evidi-fab-game'
         package: .
         startup-command: 'gunicorn --bind 0.0.0.0:8000 --timeout 600 --workers 2 --threads 4 app:app'
