@@ -1,0 +1,8 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+    "SQL_CONNECTION_STRING": "Server=your-server.database.windows.net;Database=your-database;User Id=your-user;Password=your-password;"
+  }
+}
