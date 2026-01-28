@@ -7,14 +7,39 @@
     <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
+    <div class="language-switcher">
+        <button id="lang-toggle" class="lang-button" title="Change language">
+            <span class="lang-icon">🌐</span>
+            <span id="lang-code">EN</span>
+        </button>
+        <div id="lang-menu" class="lang-menu hidden">
+            <button class="lang-option" data-lang="en">English (EN)</button>
+            <button class="lang-option" data-lang="nb">Norsk (NB)</button>
+        </div>
+    </div>
     <div class="container">
         <div class="header-section">
             <h1>🎯 Evidi Fab Game</h1>
-            <p class="welcome-text">Welcome! Let's get to know you before we start playing.</p>
+            <p class="welcome-text" id="welcome-text">Welcome to Fabric February 2026</p>
+        </div>
+        
+        <!-- Email Entry Container -->
+        <div id="email-container">
+            <form id="email-form">
+                <div class="form-group">
+                    <label>Enter your email</label>
+                    <input type="email" id="check-email" placeholder="your.email@example.com" required>
+                    <p class="help-text">Returning players can jump right in. New players will complete a quick registration.</p>
+                </div>
+                <button type="submit" class="submit-button">
+                    <span>🎮 Let's Play!</span>
+                </button>
+                <div id="email-error-message" style="display: none;"></div>
+            </form>
         </div>
         
         <!-- Registration Form -->
-        <div id="form-container">
+        <div id="form-container" class="hidden">
             <form id="user-form">
                 <div class="form-group">
                     <label>👤 What's your name?</label>
@@ -22,8 +47,9 @@
                 </div>
                 
                 <div class="form-group">
-                    <label>📧 What's your email?</label>
+                    <label>Enter your email</label>
                     <input type="email" id="email" placeholder="your.email@example.com" required>
+                    <p class="help-text" id="email-from-check" style="display: none;"></p>
                 </div>
                 
                 <div class="form-group">

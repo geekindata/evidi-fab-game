@@ -74,11 +74,11 @@ python app.py
 ## Features
 
 - ✅ User registration form with 5 questions
-- ✅ Azure AD authentication (ActiveDirectoryInteractive)
+- ✅ Azure AD authentication (Managed Identity or ActiveDirectoryInteractive)
 - ✅ Data saved to Microsoft Fabric SQL Database
 - ✅ Success/error messages
-- ✅ Detailed logging in console
-- ✅ Quiz game with logo guessing
+- ✅ Quiz game with icon guessing
+- ✅ Prevents double-clicking on submit button
 
 ## Database Schema
 
@@ -100,5 +100,5 @@ The `GameUsers` table stores:
 - Check that you're logged into Azure CLI: `az login`
 
 **No logs visible:**
-- Logs appear in the Flask console with `>>>` prefix
-- Check `flask_app.log` file for detailed logs
+- Logs appear in the Flask console
+- Check application logs in Azure App Service if deployed
