@@ -91,7 +91,30 @@ const icons = [
     { file: '/static/icons/database_sql_24_regular.svg', name: 'Database SQL' },
     { file: '/static/icons/fabric_24_regular.svg', name: 'Fabric' },
     { file: '/static/icons/data_engineering_24_regular.svg', name: 'Data Engineering' },
-    { file: '/static/icons/data_science_24_regular.svg', name: 'Data Science' }
+    { file: '/static/icons/data_science_24_regular.svg', name: 'Data Science' },
+    { file: '/static/icons/arrow_down_double_24_regular.svg', name: 'Arrow Down Double' },
+    { file: '/static/icons/binoculars_24_regular.svg', name: 'Binoculars' },
+    { file: '/static/icons/book_open_data_cloud_24_regular.svg', name: 'Book Open Data Cloud' },
+    { file: '/static/icons/branch_fork_link_24_regular.svg', name: 'Branch Fork Link' },
+    { file: '/static/icons/branch_fork_signal_24_regular.svg', name: 'Branch Fork Signal' },
+    { file: '/static/icons/briefcase_report_24_regular.svg', name: 'Briefcase Report' },
+    { file: '/static/icons/building_retail_more_link_24_regular.svg', name: 'Building Retail More Link' },
+    { file: '/static/icons/calendar_month_link_24_regular.svg', name: 'Calendar Month Link' },
+    { file: '/static/icons/calendar_month_person_24_regular.svg', name: 'Calendar Month Person' },
+    { file: '/static/icons/calendar_month_prohibited_24_regular.svg', name: 'Calendar Month Prohibited' },
+    { file: '/static/icons/calendar_month_signal_24_regular.svg', name: 'Calendar Month Signal' },
+    { file: '/static/icons/data_bar_vertical_prohibited_24_regular.svg', name: 'Data Bar Vertical Prohibited' },
+    { file: '/static/icons/database_arrow_forward_24_regular.svg', name: 'Database Arrow Forward' },
+    { file: '/static/icons/database_kql_24_regular.svg', name: 'Database KQL' },
+    { file: '/static/icons/database_stack_pulse_24_regular.svg', name: 'Database Stack Pulse' },
+    { file: '/static/icons/databases_24_regular.svg', name: 'Databases' },
+    { file: '/static/icons/diagram_branch_24_regular.svg', name: 'Diagram Branch' },
+    { file: '/static/icons/diagram_branch_sync_24_regular.svg', name: 'Diagram Branch Sync' },
+    { file: '/static/icons/document_multiple_checkmark_24_regular.svg', name: 'Document Multiple Checkmark' },
+    { file: '/static/icons/document_one_page_multiple_text_24_regular.svg', name: 'Document One Page Multiple Text' },
+    { file: '/static/icons/document_pq_24_regular.svg', name: 'Document PQ' },
+    { file: '/static/icons/folder_table_24_regular.svg', name: 'Folder Table' },
+    { file: '/static/icons/function_set_24_regular.svg', name: 'Function Set' }
 ];
 
 let score = 0;
