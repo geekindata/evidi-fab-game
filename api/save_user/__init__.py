@@ -125,13 +125,17 @@ def get_db_connection():
 def main(req: func.HttpRequest) -> func.HttpResponse:
     """Azure Function to save user data to SQL database."""
     # Use both logging and logger for maximum visibility
-    logging.info("=" * 60)
-    logging.info("POST /api/save - Function invoked")
-    logging.info("=" * 60)
-    logger.info("Function main() called")
-    print("=" * 60, flush=True)
-    print("POST /api/save - Function invoked", flush=True)
-    print("=" * 60, flush=True)
+    try:
+        logging.info("=" * 60)
+        logging.info("POST /api/save - Function invoked")
+        logging.info("=" * 60)
+        logger.info("Function main() called")
+        print("=" * 60, flush=True)
+        print("POST /api/save - Function invoked", flush=True)
+        print("=" * 60, flush=True)
+    except Exception as init_error:
+        # If logging fails, at least try to return an error
+        pass
     
     try:
         logging.info("Step 1: Getting request JSON data...")
