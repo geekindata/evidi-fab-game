@@ -8,6 +8,13 @@ import traceback
 import struct
 from azure.identity import DefaultAzureCredential  # type: ignore
 
+# Configure logging to ensure all logs are captured
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
 def mask_connection_string(conn_str: str) -> str:
     """Mask sensitive parts of connection string for logging."""
     # Mask server, database, user, password
@@ -117,9 +124,14 @@ def get_db_connection():
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     """Azure Function to save user data to SQL database."""
+    # Use both logging and logger for maximum visibility
     logging.info("=" * 60)
     logging.info("POST /api/save - Function invoked")
     logging.info("=" * 60)
+    logger.info("Function main() called")
+    print("=" * 60, flush=True)
+    print("POST /api/save - Function invoked", flush=True)
+    print("=" * 60, flush=True)
     
     try:
         logging.info("Step 1: Getting request JSON data...")
