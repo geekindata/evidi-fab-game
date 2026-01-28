@@ -158,12 +158,23 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         logging.error(f"❌ Error saving user: {error_msg}")
         logging.error(f"Traceback: {error_traceback}")
         
-        return func.HttpResponse(
-            json.dumps({
+        # Ensure we always return a valid response
+        try:
+            error_response = {
                 'success': False,
                 'error': 'Failed to save data to database',
                 'details': error_msg
-            }),
-            status_code=500,
-            mimetype='application/json'
-        )
+            }
+            return func.HttpResponse(
+                json.dumps(error_response),
+                status_code=500,
+                mimetype='application/json'
+            )
+        except Exception as response_error:
+            # If JSON encoding fails, return plain text
+            logging.error(f"Failed to create error response: {response_error}")
+            return func.HttpResponse(
+                f"Error: {error_msg}",
+                status_code=500,
+                mimetype='text/plain'
+            )
