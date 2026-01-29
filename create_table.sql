@@ -1,4 +1,4 @@
--- GameUsers table for Evidi Fab Game
+-- GameUsers table for FabFeb Game
 -- This script creates the table with all required columns
 
 SET ANSI_NULLS ON

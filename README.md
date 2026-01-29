@@ -1,4 +1,4 @@
-# Evidi Fab Game
+# FabFeb Game
 
 Quiz game with user registration form, built with Flask, HTML, CSS, and JavaScript.
 

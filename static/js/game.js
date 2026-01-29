@@ -28,8 +28,8 @@ const translations = {
         of: "of",
         whatIcon: "What is the name of this icon?",
         playAgain: "Play Again",
-        winMessage: "🎉 Congratulations! You got {score} out of 3 correct - You are now part of the raffle!",
-        loseMessage: "You got {score} out of 3 correct. Better luck next time!",
+        winMessage: "🎉Congratulations!🎉\nYou got {score} out of 4 correct!\nYou are now part of the raffle!",
+        loseMessage: "You got {score} out of 4 correct. Better luck next time!",
         welcomeBack: "✅ Welcome back! Starting game...",
         emailNotFound: "⚠️ Could not check your email. Please try again.",
         pleaseEnterEmail: "Please enter your email address",
@@ -67,8 +67,8 @@ const translations = {
         of: "av",
         whatIcon: "Hva heter dette ikonet?",
         playAgain: "Spill igjen",
-        winMessage: "🎉 Gratulerer! Du fikk {score} av 3 riktig - Du er nå med i trekningen!",
-        loseMessage: "Du fikk {score} av 3 riktig. Bedre lykke neste gang!",
+        winMessage: "🎉Gratulerer!🎉\nDu fikk {score} av 4 riktig!\nDu er nå med i trekningen!",
+        loseMessage: "Du fikk {score} av 4 riktig. Bedre lykke neste gang!",
         welcomeBack: "✅ Velkommen tilbake! Starter spillet...",
         emailNotFound: "⚠️ Kunne ikke sjekke e-posten din. Vennligst prøv igjen.",
         pleaseEnterEmail: "Vennligst skriv inn e-postadressen din",
@@ -85,36 +85,42 @@ let currentLang = localStorage.getItem('language') || 'en';
 
 // Simple game data - using available icons
 const icons = [
-    { file: '/static/icons/copilot_24_regular.svg', name: 'Copilot' },
-    { file: '/static/icons/data_factory_24_regular.svg', name: 'Data Factory' },
-    { file: '/static/icons/data_warehouse_24_regular.svg', name: 'Data Warehouse' },
-    { file: '/static/icons/database_sql_24_regular.svg', name: 'Database SQL' },
-    { file: '/static/icons/fabric_24_regular.svg', name: 'Fabric' },
-    { file: '/static/icons/data_engineering_24_regular.svg', name: 'Data Engineering' },
-    { file: '/static/icons/data_science_24_regular.svg', name: 'Data Science' },
-    { file: '/static/icons/arrow_down_double_24_regular.svg', name: 'Arrow Down Double' },
-    { file: '/static/icons/binoculars_24_regular.svg', name: 'Binoculars' },
-    { file: '/static/icons/book_open_data_cloud_24_regular.svg', name: 'Book Open Data Cloud' },
-    { file: '/static/icons/branch_fork_link_24_regular.svg', name: 'Branch Fork Link' },
-    { file: '/static/icons/branch_fork_signal_24_regular.svg', name: 'Branch Fork Signal' },
-    { file: '/static/icons/briefcase_report_24_regular.svg', name: 'Briefcase Report' },
-    { file: '/static/icons/building_retail_more_link_24_regular.svg', name: 'Building Retail More Link' },
-    { file: '/static/icons/calendar_month_link_24_regular.svg', name: 'Calendar Month Link' },
-    { file: '/static/icons/calendar_month_person_24_regular.svg', name: 'Calendar Month Person' },
-    { file: '/static/icons/calendar_month_prohibited_24_regular.svg', name: 'Calendar Month Prohibited' },
-    { file: '/static/icons/calendar_month_signal_24_regular.svg', name: 'Calendar Month Signal' },
-    { file: '/static/icons/data_bar_vertical_prohibited_24_regular.svg', name: 'Data Bar Vertical Prohibited' },
-    { file: '/static/icons/database_arrow_forward_24_regular.svg', name: 'Database Arrow Forward' },
-    { file: '/static/icons/database_kql_24_regular.svg', name: 'Database KQL' },
-    { file: '/static/icons/database_stack_pulse_24_regular.svg', name: 'Database Stack Pulse' },
-    { file: '/static/icons/databases_24_regular.svg', name: 'Databases' },
-    { file: '/static/icons/diagram_branch_24_regular.svg', name: 'Diagram Branch' },
-    { file: '/static/icons/diagram_branch_sync_24_regular.svg', name: 'Diagram Branch Sync' },
-    { file: '/static/icons/document_multiple_checkmark_24_regular.svg', name: 'Document Multiple Checkmark' },
-    { file: '/static/icons/document_one_page_multiple_text_24_regular.svg', name: 'Document One Page Multiple Text' },
-    { file: '/static/icons/document_pq_24_regular.svg', name: 'Document PQ' },
-    { file: '/static/icons/folder_table_24_regular.svg', name: 'Folder Table' },
-    { file: '/static/icons/function_set_24_regular.svg', name: 'Function Set' }
+    { file: '/static/icons/ai_skills_64_item.svg', name: 'AI Skills' },
+    { file: '/static/icons/apps_64_item.svg', name: 'Apps' },
+    { file: '/static/icons/dashboard_64_item.svg', name: 'Dashboard' },
+    { file: '/static/icons/data_warehouse_64_item.svg', name: 'Data Warehouse' },
+    { file: '/static/icons/dataflow_64_item.svg', name: 'Dataflow' },
+    { file: '/static/icons/dataflow_gen2_64_item.svg', name: 'Dataflow Gen2' },
+    { file: '/static/icons/datamart_64_item.svg', name: 'Datamart' },
+    { file: '/static/icons/environment_64_item.svg', name: 'Environment' },
+    { file: '/static/icons/event_house_64_item.svg', name: 'Event House' },
+    { file: '/static/icons/eventstream_64_item.svg', name: 'Eventstream' },
+    { file: '/static/icons/Evidi.jpg', name: 'Evidi' },
+    { file: '/static/icons/Cathrine%20Wilhelmsen.jpg', name: 'Cathrine Wilhelmsen' },
+    { file: '/static/icons/Erlend%20Øien.jpg', name: 'Erlend Øien' },
+    { file: '/static/icons/experiments_64_item.svg', name: 'Experiments' },
+    { file: '/static/icons/exploration_64_item.svg', name: 'Exploration' },
+    { file: '/static/icons/function_64_item.svg', name: 'Function' },
+    { file: '/static/icons/function_set_64_item.svg', name: 'Function Set' },
+    { file: '/static/icons/healthcare_64_item.svg', name: 'Healthcare' },
+    { file: '/static/icons/kql_database_64_item.svg', name: 'KQL Database' },
+    { file: '/static/icons/kql_queryset_64_item.svg', name: 'KQL Queryset' },
+    { file: '/static/icons/lakehouse_64_item.svg', name: 'Lakehouse' },
+    { file: '/static/icons/model_64_item.svg', name: 'Model' },
+    { file: '/static/icons/notebook_64_item.svg', name: 'Notebook' },
+    { file: '/static/icons/paginated_report_64_item.svg', name: 'Paginated Report' },
+    { file: '/static/icons/pipeline_64_item.svg', name: 'Pipeline' },
+    { file: '/static/icons/real_time_dashboard_64_item.svg', name: 'Real Time Dashboard' },
+    { file: '/static/icons/reflex_64_item.svg', name: 'Reflex' },
+    { file: '/static/icons/report_64_item.svg', name: 'Report' },
+    { file: '/static/icons/retail_64_item.svg', name: 'Retail' },
+    { file: '/static/icons/scorecard_64_item.svg', name: 'Scorecard' },
+    { file: '/static/icons/semantic_model_64_item.svg', name: 'Semantic Model' },
+    { file: '/static/icons/spark_job_definition_64_item.svg', name: 'Spark Job Definition' },
+    { file: '/static/icons/sql_database_64_item.svg', name: 'SQL Database' },
+    { file: '/static/icons/streaming_dataflow_64_item.svg', name: 'Streaming Dataflow' },
+    { file: '/static/icons/sustainability_64_item.svg', name: 'Sustainability' },
+    { file: '/static/icons/variables_64_item.svg', name: 'Variables' }
 ];
 
 let score = 0;
@@ -135,6 +141,48 @@ function t(key, params = {}) {
         text = text.replace(`{${param}}`, params[param]);
     });
     return text;
+}
+
+// Confetti celebration function - continuous
+let confettiInterval = null;
+
+function triggerConfetti() {
+    if (typeof confetti !== 'undefined') {
+        // Clear any existing confetti interval
+        if (confettiInterval) {
+            clearInterval(confettiInterval);
+        }
+        
+        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+        function randomInRange(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        // Launch confetti continuously
+        confettiInterval = setInterval(function() {
+            const particleCount = 50;
+            
+            // Launch confetti from both sides
+            confetti({
+                ...defaults,
+                particleCount,
+                origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+            });
+            confetti({
+                ...defaults,
+                particleCount,
+                origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+            });
+        }, 250);
+    }
+}
+
+function stopConfetti() {
+    if (confettiInterval) {
+        clearInterval(confettiInterval);
+        confettiInterval = null;
+    }
 }
 
 // Update all UI text based on current language
@@ -244,13 +292,13 @@ function updateLanguage() {
     // Update game UI
     const scoreLabel = document.querySelector('.score');
     if (scoreLabel) {
-        scoreLabel.innerHTML = `${t('score')}: <span id="score">${score}</span>/3`;
+        scoreLabel.innerHTML = `${t('score')}: <span id="score">${score}</span>/4`;
     }
     
     const questionLabel = document.querySelector('.question h2');
     if (questionLabel) {
         const qNum = document.getElementById('question-num')?.textContent || '1';
-        questionLabel.innerHTML = `${t('question')} <span id="question-num">${qNum}</span> ${t('of')} 3`;
+        questionLabel.innerHTML = `${t('question')} <span id="question-num">${qNum}</span> ${t('of')} 4`;
     }
     
     const whatIcon = document.querySelector('.question p');
@@ -318,24 +366,79 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Initialize game
 function initGame() {
-    // Pick 3 random icons
+    // Find Evidi icon
+    const evidiIcon = icons.find(i => i.name === 'Evidi');
+    const erlendIcon = icons.find(i => i.name === 'Erlend Øien');
+    const cathrineIcon = icons.find(i => i.name === 'Cathrine Wilhelmsen');
+    
+    // Debug: Check if icons are found
+    if (!erlendIcon) {
+        console.warn('Erlend Øien icon not found in icons array');
+    }
+    if (!cathrineIcon) {
+        console.warn('Cathrine Wilhelmsen icon not found in icons array');
+    }
+    
+    // Pick 2 random icons (excluding Evidi, Erlend, and Cathrine)
     const selected = [];
-    while (selected.length < 3) {
-        const random = icons[Math.floor(Math.random() * icons.length)];
+    const availableIcons = icons.filter(i => 
+        i.name !== 'Evidi' && 
+        i.name !== 'Erlend Øien' && 
+        i.name !== 'Cathrine Wilhelmsen'
+    );
+    while (selected.length < 2) {
+        const random = availableIcons[Math.floor(Math.random() * availableIcons.length)];
         if (!selected.includes(random)) {
             selected.push(random);
         }
     }
     
-    // Create questions
+    // Create questions for first 2 icons
     questions = selected.map(icon => {
-        const wrong = icons.filter(i => i.name !== icon.name)
+        const wrong = icons.filter(i => 
+            i.name !== icon.name && 
+            i.name !== 'Evidi' && 
+            i.name !== 'Erlend Øien' && 
+            i.name !== 'Cathrine Wilhelmsen'
+        )
             .sort(() => Math.random() - 0.5)
             .slice(0, 3);
         const options = [icon.name, ...wrong.map(i => i.name)]
             .sort(() => Math.random() - 0.5);
         return { icon, options, correct: icon.name };
     });
+    
+    // Question 3: Either Erlend or Cathrine (randomly chosen)
+    // Ensure both icons exist before random selection
+    const thirdQuestionOptions = [];
+    if (erlendIcon) thirdQuestionOptions.push(erlendIcon);
+    if (cathrineIcon) thirdQuestionOptions.push(cathrineIcon);
+    
+    if (thirdQuestionOptions.length > 0) {
+        const thirdQuestionIcon = thirdQuestionOptions[Math.floor(Math.random() * thirdQuestionOptions.length)];
+        const wrong = icons.filter(i => 
+            i.name !== thirdQuestionIcon.name && 
+            i.name !== 'Evidi'
+        )
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 3);
+        const options = [thirdQuestionIcon.name, ...wrong.map(i => i.name)]
+            .sort(() => Math.random() - 0.5);
+        questions.push({
+            icon: thirdQuestionIcon,
+            options,
+            correct: thirdQuestionIcon.name
+        });
+    }
+    
+    // Add Evidi as the 4th question with all 4 options as "Evidi"
+    if (evidiIcon) {
+        questions.push({
+            icon: evidiIcon,
+            options: ['Evidi', 'Evidi', 'Evidi', 'Evidi'],
+            correct: 'Evidi'
+        });
+    }
     
     currentQuestion = 0;
     score = 0;
@@ -354,16 +457,53 @@ function showQuestion() {
     document.getElementById('question-num').textContent = currentQuestion + 1;
     document.getElementById('score').textContent = score;
     
+    // Hide rotate button only on question 4 (Evidi)
+    const rotateButton = document.getElementById('rotate-question');
+    if (rotateButton) {
+        if (currentQuestion === 3) {
+            rotateButton.style.display = 'none';
+        } else {
+            rotateButton.style.display = 'flex';
+        }
+    }
+    
+    // Show presentation info for Erlend Øien or Cathrine Wilhelmsen
+    const presentationInfo = document.getElementById('presentation-info');
+    if (q.icon.name === 'Erlend Øien') {
+        presentationInfo.innerHTML = `
+            <div class="presentation-details">
+                <strong>Erlend Øien</strong><br>
+                is presenting on<br>
+                <strong>Excel: Schrödinger's metadata database</strong><br>
+                Room 1<br>
+                4:00 pm - 4:45 pm
+            </div>
+        `;
+        presentationInfo.classList.remove('hidden');
+    } else if (q.icon.name === 'Cathrine Wilhelmsen') {
+        presentationInfo.innerHTML = `
+            <div class="presentation-details">
+                <strong>Cathrine Wilhelmsen</strong><br>
+                Data & Analytics Principal Consultant,<br>
+                Evidi<br>
+                Tech Lead & Microsoft MVP
+            </div>
+        `;
+        presentationInfo.classList.remove('hidden');
+    } else {
+        presentationInfo.classList.add('hidden');
+    }
+    
     // Update question label with translation
     const questionLabel = document.querySelector('.question h2');
     if (questionLabel) {
-        questionLabel.innerHTML = `${t('question')} <span id="question-num">${currentQuestion + 1}</span> ${t('of')} 3`;
+        questionLabel.innerHTML = `${t('question')} <span id="question-num">${currentQuestion + 1}</span> ${t('of')} 4`;
     }
     
     // Update score label with translation
     const scoreLabel = document.querySelector('.score');
     if (scoreLabel) {
-        scoreLabel.innerHTML = `${t('score')}: <span id="score">${score}</span>/3`;
+        scoreLabel.innerHTML = `${t('score')}: <span id="score">${score}</span>/4`;
     }
     
     const optionsDiv = document.getElementById('options');
@@ -382,18 +522,63 @@ function showQuestion() {
 function rotateQuestion() {
     if (currentQuestion >= questions.length) return;
     
+    // Don't allow rotating the 4th question (Evidi)
+    if (currentQuestion === 3) {
+        return;
+    }
+    
+    // Special handling for question 3: rotate between Erlend and Cathrine
+    if (currentQuestion === 2) {
+        const erlendIcon = icons.find(i => i.name === 'Erlend Øien');
+        const cathrineIcon = icons.find(i => i.name === 'Cathrine Wilhelmsen');
+        const currentIcon = questions[currentQuestion].icon;
+        
+        // Switch to the other one
+        const newIcon = currentIcon.name === 'Erlend Øien' ? cathrineIcon : erlendIcon;
+        
+        if (newIcon) {
+            const wrong = icons.filter(i => 
+                i.name !== newIcon.name && 
+                i.name !== 'Evidi'
+            )
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 3);
+            const options = [newIcon.name, ...wrong.map(i => i.name)]
+                .sort(() => Math.random() - 0.5);
+            
+            questions[currentQuestion] = { icon: newIcon, options, correct: newIcon.name };
+            showQuestion();
+        }
+        return;
+    }
+    
     // Get icons already used in other questions (to avoid duplicates)
     const usedIcons = questions
         .map((q, idx) => idx !== currentQuestion ? q.icon.name : null)
         .filter(name => name !== null);
     
-    // Pick a new random icon that's not already used
-    const availableIcons = icons.filter(i => !usedIcons.includes(i.name));
+    // Pick a new random icon that's not already used (excluding Evidi, Erlend, and Cathrine)
+    const availableIcons = icons.filter(i => 
+        !usedIcons.includes(i.name) && 
+        i.name !== 'Evidi' && 
+        i.name !== 'Erlend Øien' && 
+        i.name !== 'Cathrine Wilhelmsen'
+    );
     
     if (availableIcons.length === 0) {
-        // If all icons are used, allow any icon
-        const newIcon = icons[Math.floor(Math.random() * icons.length)];
-        const wrong = icons.filter(i => i.name !== newIcon.name)
+        // If all icons are used, allow any icon except Evidi, Erlend, and Cathrine
+        const allowedIcons = icons.filter(i => 
+            i.name !== 'Evidi' && 
+            i.name !== 'Erlend Øien' && 
+            i.name !== 'Cathrine Wilhelmsen'
+        );
+        const newIcon = allowedIcons[Math.floor(Math.random() * allowedIcons.length)];
+        const wrong = icons.filter(i => 
+            i.name !== newIcon.name && 
+            i.name !== 'Evidi' && 
+            i.name !== 'Erlend Øien' && 
+            i.name !== 'Cathrine Wilhelmsen'
+        )
             .sort(() => Math.random() - 0.5)
             .slice(0, 3);
         const options = [newIcon.name, ...wrong.map(i => i.name)]
@@ -402,7 +587,12 @@ function rotateQuestion() {
         questions[currentQuestion] = { icon: newIcon, options, correct: newIcon.name };
     } else {
         const newIcon = availableIcons[Math.floor(Math.random() * availableIcons.length)];
-        const wrong = icons.filter(i => i.name !== newIcon.name)
+        const wrong = icons.filter(i => 
+            i.name !== newIcon.name && 
+            i.name !== 'Evidi' && 
+            i.name !== 'Erlend Øien' && 
+            i.name !== 'Cathrine Wilhelmsen'
+        )
             .sort(() => Math.random() - 0.5)
             .slice(0, 3);
         const options = [newIcon.name, ...wrong.map(i => i.name)]
@@ -439,7 +629,7 @@ function selectAnswer(selected) {
     }
     const scoreLabel = document.querySelector('.score');
     if (scoreLabel) {
-        scoreLabel.innerHTML = `${t('score')}: <span id="score">${score}</span>/3`;
+        scoreLabel.innerHTML = `${t('score')}: <span id="score">${score}</span>/4`;
     }
     
     setTimeout(() => {
@@ -450,7 +640,16 @@ function selectAnswer(selected) {
 
 // Show result
 async function showResult() {
-    // Update score display one final time before hiding
+    // Hide question and options immediately
+    const questionDiv = document.querySelector('.question');
+    const optionsDiv = document.getElementById('options');
+    const iconElement = document.getElementById('icon');
+    
+    if (questionDiv) questionDiv.classList.add('hidden');
+    if (optionsDiv) optionsDiv.classList.add('hidden');
+    if (iconElement) iconElement.style.display = 'none';
+    
+    // Update score display one final time
     const scoreElement = document.getElementById('score');
     if (scoreElement) {
         scoreElement.textContent = score;
@@ -458,21 +657,19 @@ async function showResult() {
     
     const scoreLabel = document.querySelector('.score');
     if (scoreLabel) {
-        scoreLabel.innerHTML = `${t('score')}: <span id="score">${score}</span>/3`;
+        scoreLabel.innerHTML = `${t('score')}: <span id="score">${score}</span>/4`;
     }
     
-    const questionDiv = document.querySelector('.question');
-    const optionsDiv = document.getElementById('options');
+    // Show result div
     const resultDiv = document.getElementById('result');
-    
-    if (questionDiv) questionDiv.classList.add('hidden');
-    if (optionsDiv) optionsDiv.classList.add('hidden');
     if (resultDiv) resultDiv.classList.remove('hidden');
     
     const resultText = document.getElementById('result-text');
     if (resultText) {
-        if (score >= 2) {
-            resultText.textContent = t('winMessage', { score: score });
+        if (score >= 3) {
+            resultText.innerHTML = t('winMessage', { score: score }).replace(/\n/g, '<br>');
+            // Trigger confetti celebration
+            triggerConfetti();
         } else {
             resultText.textContent = t('loseMessage', { score: score });
         }
@@ -671,12 +868,17 @@ document.getElementById('email-form').onsubmit = async function(e) {
 
 // Play again - return to email entry
 document.getElementById('play-again').onclick = function() {
+    // Stop confetti when playing again
+    stopConfetti();
+    
     document.getElementById('game-container').classList.add('hidden');
     document.getElementById('result').classList.add('hidden');
     const questionDiv = document.querySelector('.question');
     if (questionDiv) questionDiv.classList.remove('hidden');
     const optionsDiv = document.getElementById('options');
     if (optionsDiv) optionsDiv.classList.remove('hidden');
+    const iconElement = document.getElementById('icon');
+    if (iconElement) iconElement.style.display = '';
     document.getElementById('email-container').classList.remove('hidden');
     document.getElementById('check-email').value = '';
     document.getElementById('email-error-message').style.display = 'none';

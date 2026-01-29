@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evidi Fab Game</title>
+    <title>FabFeb Game</title>
     <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 </head>
 <body>
     <div class="language-switcher">
@@ -19,7 +20,8 @@
     </div>
     <div class="container">
         <div class="header-section">
-            <h1>🎯 Evidi Fab Game</h1>
+            <img src="/static/images/Evidi.jpg" alt="Evidi Logo" class="logo">
+            <h1>FabFeb Game</h1>
             <p class="welcome-text" id="welcome-text">Welcome to Fabric February 2026</p>
         </div>
         
@@ -118,9 +120,9 @@
 
         <!-- Game Container -->
         <div id="game-container" class="hidden">
-            <div class="score">Score: <span id="score">0</span>/3</div>
+            <div class="score">Score: <span id="score">0</span>/4</div>
             <div class="question">
-                <h2>Question <span id="question-num">1</span> of 3</h2>
+                <h2>Question <span id="question-num">1</span> of 4</h2>
                 <button id="rotate-question" class="rotate-button" title="Get a new question">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8z"/>
@@ -129,6 +131,7 @@
                 </button>
                 <img id="icon" src="" alt="Icon">
                 <p>What is the name of this icon?</p>
+                <div id="presentation-info" class="presentation-info hidden"></div>
             </div>
             <div id="options"></div>
             <div id="result" class="hidden">

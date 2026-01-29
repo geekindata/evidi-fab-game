@@ -234,10 +234,10 @@ def save_game_result():
         if not email:
             return jsonify({'error': 'Email is required'}), 400
         
-        if score is None or not isinstance(score, int) or score < 0 or score > 3:
-            return jsonify({'error': 'Valid score (0-3) is required'}), 400
+        if score is None or not isinstance(score, int) or score < 0 or score > 4:
+            return jsonify({'error': 'Valid score (0-4) is required'}), 400
         
-        qualified_for_raffle = score >= 2
+        qualified_for_raffle = score >= 3
         
         conn = get_db_connection()
         cursor = conn.cursor()
